@@ -5,7 +5,7 @@ from qiime2.plugin import (Str, Properties, Int, Float,  Metadata, Bool,
                            MetadataColumn, Categorical, Numeric)
 from q2_types.feature_table import FeatureTable, Frequency
 from q2_types.feature_data import FeatureData, Differential
-from q2_decontam._method import decontam
+from q2_decontam._method import prevalence
 
 
 plugin = qiime2.plugin.Plugin(
@@ -19,7 +19,7 @@ plugin = qiime2.plugin.Plugin(
 
 
 plugin.methods.register_function(
-    function=decontam,
+    function=prevalence,
     inputs={'table': FeatureTable[Frequency]},
     parameters={
         'blank': MetadataColumn[Categorical],

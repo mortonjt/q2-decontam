@@ -4,10 +4,10 @@ import pandas as pd
 import biom
 
 
-def decontam(table : biom.Table,
-             blank : qiime2.CategoricalMetadataColumn,
-             batch : qiime2.CategoricalMetadataColumn=None,
-             min_samples : int=2) -> pd.DataFrame:
+def prevalence(table : biom.Table,
+               blank : qiime2.CategoricalMetadataColumn,
+               batch : qiime2.CategoricalMetadataColumn=None,
+               min_samples : int=2) -> pd.DataFrame:
 
     filter_f = lambda v, i, m: np.sum(v>0) >= min_samples
     table.filter(filter_f, axis='observation')
