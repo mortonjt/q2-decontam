@@ -7,7 +7,7 @@ import biom
 def decontam(table : biom.Table,
              blank : qiime2.CategoricalMetadataColumn,
              batch : qiime2.CategoricalMetadataColumn=None,
-             min_samples : int=2):
+             min_samples : int=2) -> pd.DataFrame:
 
     filter_f = lambda v, i, m: np.sum(v>0) >= min_samples
     table.filter(filter_f, axis='observation')
@@ -41,5 +41,5 @@ def decontam(table : biom.Table,
                             " in R (return code %d), please inspect stdout"
                             " and stderr to learn more." % e.returncode)
         pvals = pd.read_table(summary_fp)
-        idx = pvals['p.prev'] < 0.1
+        idx = pvals['p.prev'] > 0.1
         return table.loc[:, idx]

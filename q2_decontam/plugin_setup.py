@@ -10,7 +10,7 @@ from q2_decontam._method import decontam
 
 plugin = qiime2.plugin.Plugin(
     name='decontam',
-    version=__version__,
+    version="0.1.0",
     website="https://github.com/mortonjt/q2-decontam",
     citations=[],
     short_description=('Plugin for contaminant removal. '),
