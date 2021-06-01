@@ -1,7 +1,24 @@
 import os
 import qiime2
 import pandas as pd
+import numpy as np
+import subprocess
 import biom
+import tempfile
+
+
+def run_commands(cmds, verbose=True):
+    if verbose:
+        print("Running external command line application(s). This may print "
+              "messages to stdout and/or stderr.")
+        print("The command(s) being run are below. These commands cannot "
+              "be manually re-run as they will depend on temporary files that "
+              "no longer exist.")
+    for cmd in cmds:
+        if verbose:
+            print("\nCommand:", end=' ')
+            print(" ".join(cmd), end='\n\n')
+        proc = subprocess.run(cmd, check=True)
 
 
 def prevalence(table : biom.Table,
@@ -42,4 +59,10 @@ def prevalence(table : biom.Table,
                             " and stderr to learn more." % e.returncode)
         pvals = pd.read_table(summary_fp)
         idx = pvals['p.prev'] > 0.1
-        return table.loc[:, idx]
+        filtered_table = table.loc[:, idx]
+        # filtered_table = biom.Table(
+        #     table.values.T,
+        #     list(table.columns),
+        #     list(table.index)
+        # )
+        return filtered_table

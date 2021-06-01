@@ -26,21 +26,19 @@ plugin.methods.register_function(
         'batch': MetadataColumn[Categorical],
         'min_samples' : Int
     },
-    outputs=[
-        ('filtered-table', FeatureTable[Frequency])
-    ],
+    outputs=[('filtered_table', FeatureTable[Frequency])],
     input_descriptions={
         "table": "Input table of counts.",
     },
     output_descriptions={
-        'filtered-table': ('Table with contaminants removed.'),
+        'filtered_table': ('Table with contaminants removed.')
     },
     parameter_descriptions={
         'blank': 'Specifies if the sample is a blank or not.',
         'batch': 'Specifies different sequencing batches.',
         'min_samples': 'Minimum number of samples to keep',
     },
-    name='Decontam',
+    name='Prevalance filter',
     description=("Removes contaminants based on blanks."),
     citations=[]
 )
